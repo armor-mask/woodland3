@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, TreePine } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+import LanguageSelector from './LanguageSelector';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/accommodation', label: 'Accommodation' },
-    { path: '/dining', label: 'Dining' },
-    { path: '/events', label: 'Events & Weddings' },
-    { path: '/contact', label: 'Contact' },
+    { path: '/', label: t('nav.home') },
+    { path: '/accommodation', label: t('nav.accommodation') },
+    { path: '/dining', label: t('nav.dining') },
+    { path: '/events', label: t('nav.events') },
+    { path: '/contact', label: t('nav.contact') },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -30,7 +33,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -44,8 +47,9 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <LanguageSelector />
             <button className="bg-resort-gold hover:bg-resort-gold/90 text-resort-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg">
-              Book Now
+              {t('nav.bookNow')}
             </button>
           </div>
 
@@ -78,8 +82,11 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              <div className="px-3 py-2">
+                <LanguageSelector />
+              </div>
               <button className="w-full bg-resort-gold hover:bg-resort-gold/90 text-resort-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200 mt-4">
-                Book Now
+                {t('nav.bookNow')}
               </button>
             </div>
           </div>
